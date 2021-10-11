@@ -1,0 +1,45 @@
+{
+  "name": "app-serverless-api",
+  "version": "1.0.0",
+  "description": "app-serverless-api",
+  "private": true,
+  "egg": {
+    "declarations": true
+  },
+  "dependencies": {
+    "egg": "^2.15.1",
+    "egg-passport": "^2.1.1",
+    "egg-passport-local": "^1.2.1",
+    "egg-sequelize": "^6.0.0",
+    "egg-validate": "^2.0.2",
+    "egg-view-nunjucks": "^2.2.0",
+    "pg": "^8.5.1",
+    "pg-hstore": "^2.3.3"
+  },
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "ci": "NODE_ENV=test npx sequelize db:migrate --env test && egg-bin cov",
+    "cov": "egg-bin cov",
+    "test": "egg-bin test",
+    "dev": "egg-bin dev NODE_ENV=development"
+  },
+  "ci": {
+    "version": "10"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "qh_Jack",
+  "license": "MIT",
+  "devDependencies": {
+    "egg-bin": "^4.15.0",
+    "egg-mock": "^4.0.1",
+    "eslint": "^7.18.0",
+    "factory-girl": "^5.0.4",
+    "sequelize-cli": "^6.2.0"
+  }
+}

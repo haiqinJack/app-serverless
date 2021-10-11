@@ -1,0 +1,72 @@
+# serverless.yml
+
+component: egg # (必选) 组件名称，在该实例中为egg Egg 组件实际上创建的是一个 API 网关触发器 + 云函数资源
+name: app-serverless-egg # (必选) 组件实例名称.
+# org: orgDemo # (可选) 用于记录组织信息，默认值为您的腾讯云账户 appid，必须为字符串
+app: ${env:APP} # (可选) 用于记录组织信息. 默认与name相同，必须为字符串 同一个应用下每个组件的 app、stage、org 参数必须保持一致
+stage: ${env:STAGE} # (可选) 用于区分环境信息，默认值是 dev
+
+inputs:
+  runtime: ${env:RUNTIME} # 运行环境
+  region: ${env:REGION} # 项目部署所在区域，默认广州区
+  functionName: ${name}-${stage}-${app} # 云函数名称
+  # serviceName: mytest # API 网关服务名称, 默认创建一个新的服务名称
+  # serviceId: service-np1uloxw # API 网关服务 ID,如果存在将使用这个 API 网关服务
+  # entryFile: sls.js # 自定义 server 的入口文件名，默认为 sls.js，如果不想修改文件名为 sls.js 可以自定义
+  # src: ./ # 第一种为string时，会打包src对应目录下的代码上传到默认cos上。
+  src:  # 第二种，部署src下的文件代码，并打包成zip上传到bucket上
+    src: ./  # 本地需要打包的文件目录
+    bucket: sls-layer-ap-guangzhou-code # bucket name，当前会默认在bucket name后增加 appid 后缀, 本例中为 bucket01-appid
+    exclude:   # 被排除的文件或目录
+      - .env
+      - .git
+      - node_modules
+      - coverage
+      - typings
+      - test
+  # src: # 第三种，在指定存储桶bucket中已经存在了object代码，直接部署
+  #   bucket: sls-layer-ap-guangzhou-code # bucket name，当前会默认在bucket name后增加 appid 后缀, 本例中为 bucket01-appid
+  #   object: app-serverless-layer-prod-app-serverless-1625845120.zip  # bucket key 指定存储桶内的文件
+  layers: # 云函数绑定的 layer, 配置参数参考 层配置
+    - name: app-serverless-layer-prod-app-serverless #  layer名称
+      version: 11 #  版本
+  functionConf: # 函数配置相关
+    timeout: 10 # 超时时间，单位秒
+    eip: false # 是否固定出口IP
+    memorySize: 128 # 内存大小，单位MB
+    # environment: #  环境变量
+    #   variables: #  环境变量数组
+    #     TEST: vale
+    vpcConfig: # 私有网络配置
+      vpcId: vpc-gisq4gg9 # 私有网络的Id
+      subnetId: subnet-a2v9qx6c # 子网ID
+  role: SCF_QcsRole
+  apigatewayConf: #  api网关配置
+    # isDisabled: false # 关闭自动创建 API 网关功能。默认值为否，即默认自动创建 API 网关。
+    # enableCORS: true #  开启跨域。默认值为否。
+    # customDomains: # 自定义 API 域名配置, 参考 自定义域名
+    #   - domain: abc.com # 待绑定的自定义的域名
+    #     certificateId: abcdefg # 待绑定自定义域名的证书唯一 ID
+    #     # 如要设置自定义路径映射，请设置为 false
+    #     isDefaultMapping: false
+    #     # 自定义路径映射的路径。使用自定义映射时，可一次仅映射一个 path 到一个环境，也可映射多个 path 到多个环境。并且一旦使用自定义映射，原本的默认映射规则不再生效，只有自定义映射路径生效。
+    #     pathMappingSet:
+    #       - path: /
+    #         environment: release
+    #     protocols: # 绑定自定义域名的协议类型，默认与服务的前端协议一致。
+    #       - http # 支持http协议
+    #       - https # 支持https协议
+    protocols:
+      - http
+      - https
+    environment: release #发布环境. 目前支持三种发布环境: test（测试）, prepub（预发布） 与 release（发布）
+    # serviceTimeout: 15
+    # usagePlan: #  用户使用计划
+    #   usagePlanId: 1111
+    #   usagePlanName: slscmp
+    #   usagePlanDesc: sls create
+    #   maxRequestNum: 1000
+    # auth: #  API 密钥配置, 参考 API 密钥
+    #   secretName: secret
+    #   secretIds:
+    #     - xxx
