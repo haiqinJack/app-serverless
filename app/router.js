@@ -11,4 +11,5 @@ module.exports = app => {
   router.get('/admin', controller.admin.index)
   
   router.resources('users', '/users', controller.users);
+  router.resources('sign', '/sign', controller.sign)
 };

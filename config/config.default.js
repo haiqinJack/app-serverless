@@ -21,16 +21,21 @@ module.exports = appInfo => {
     },
   };
 
+  config.cors = {
+    origin: '*',
+    allowMethods: 'GET, HEAD, PUT, POST, DELETE, PATCH'
+  }
+  config.jwt = {
+    secret
+  }
+
   config.security = {
     csrf : {
       enable: false
-    }
+    },
+    domainWhiteList: ['http://localhost:8080']
   }
 
-  config.passportLocal = {
-    key,
-    secret
-  };
   // use for cookie sign key, should change to your own and keep security
   config.keys = key
 

@@ -1,8 +1,8 @@
 exports.sequelize = {
-  "username": "tencentdb_k11bydrj",
-  "password": "61w)8OZXBj4D$i[",
-  "database": "tencentdb_k11bydrj",
-  "port": 8224,
-  "host": "postgres-k11bydrj.sql.tencentcdb.com",
+  "username": "postgres",
+  "password": "450450",
+  "database": "postgres",
+  "port": 5433,
+  "host": "127.0.0.1",
   "dialect": "postgres"
 }

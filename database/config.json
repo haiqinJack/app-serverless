@@ -8,11 +8,11 @@
     "dialect": "postgres"
   },
   "test": {
-    "username": "tencentdb_ov4wgzqj",
-    "password": "u1O698g^w)sEzq{",
-    "database": "tencentdb_ov4wgzqj",
-    "port": 8224,
-    "host": "postgres-ov4wgzqj.sql.tencentcdb.com",
+    "username": "postgres",
+    "password": "450450",
+    "database": "postgres",
+    "port": 5433,
+    "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "production": {

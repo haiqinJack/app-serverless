@@ -18,12 +18,12 @@ module.exports = {
     enable: true,
     package: 'egg-validate',
   },
-  passport: {
+  jwt: {
     enable: true,
-    package: 'egg-passport',
+    package: 'egg-jwt'
   },
-  passportLocal: {
+  cors: {
     enable: true,
-    package: 'egg-passport-local',
-  },
+    package: 'egg-cors'
+  }
 };
