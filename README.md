@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-# app-serverless
-=======
 # 快速构建 eggjs-starter
 
 **中文** | [English](./README_EN.md)
@@ -76,4 +73,3 @@ npx sequelize init:config
 npx sequelize init:migrations
 
 npx sequelize migration:generate --name=init-users
->>>>>>> 添加鉴权功能
