@@ -1,17 +1,17 @@
 const Service = require('egg').Service;
 ``
-class UserService extends Service {  
-  async findOne(user) {
-    const { ctx } = this;
-    const _user = await ctx.model.User.findOne({where: user});
-    return _user;
+class UserService extends Service { 
+  /**
+   * 
+   * @param {string} username 用户名 
+   * @returns {Promise<{id:string,username:string,password:string}>} 返回创建的User
+   */ 
+  async findOne(username) {
+    return await this.ctx.model.User.findOne({where: {username}, attributes: ['id', 'username', 'password']});
   }
 
   async create(user) {
-    const ctx = this.ctx;
-    const result = await ctx.model.User.create(user);
-    // 返回创建的 user
-    return result.toJSON();
+    return await this.ctx.model.User.create(user);
   }
 }
 

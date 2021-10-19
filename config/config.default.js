@@ -40,7 +40,8 @@ module.exports = appInfo => {
   config.keys = key
 
   // add your middleware config here
-  config.middleware = ['errorHandler'];
+  config.middleware = ['errorHandler', 'tokenHandler'];
+
 
   // add your user config here
   const userConfig = {
@@ -52,6 +53,15 @@ module.exports = appInfo => {
 
     errorHandler: {
       match: '/'
+    },
+
+    tokenHandler: {
+      ignore(ctx) {
+        //匹配不需要验证token的路由
+        const url = ctx.request.url;
+        const reg = /sign/i;
+        return reg.test(url);
+      }
     }
   };
  
